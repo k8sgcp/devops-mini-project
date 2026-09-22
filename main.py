@@ -49,7 +49,7 @@ def register(user: UserRegister):
             status_code=Status.HTTP_400_BAD_REQUEST,
             detail="Email is already registered."
         )
-    
+
     # Store hashed password, never plain text
     users_db[user.email] = hash_password(user.password)
     return {"message": "Account created successfully."}
@@ -57,14 +57,14 @@ def register(user: UserRegister):
 @app.post("/login")
 def login(user: UserLogin):
     stored_hash = users_db.get(user.email)
-    
+
     # Validate credentials
     if not stored_hash or not verify_password(user.password, stored_hash):
         raise HTTPException(
             status_code=Status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password."
         )
-    
+
     # Generate JWT for Android app
     token = create_access_token(data={"sub": user.email})
     return {"access_token": token, "token_type": "bearer"}

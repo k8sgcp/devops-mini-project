@@ -12,7 +12,7 @@ export default function App() {
   ];
 
   const addToCart = (item) => setCart([...cart, item]);
-  
+
   const placeOrder = async () => {
     // 1. Trigger API
     const res = await fetch('/api/v1/orders', {
@@ -48,7 +48,7 @@ export default function App() {
                   <h3 className="font-medium">{item.name}</h3>
                   <p className="text-gray-500 text-sm">${item.price.toFixed(2)}</p>
                 </div>
-                <button 
+                <button
                   onClick={() => addToCart(item)}
                   className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
                 >
@@ -59,7 +59,7 @@ export default function App() {
           </div>
 
           {cart.length > 0 && (
-            <button 
+            <button
               onClick={placeOrder}
               className="w-full mt-6 bg-green-600 text-white py-3 rounded-lg font-bold shadow-lg"
             >

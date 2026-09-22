@@ -21,8 +21,8 @@ class BNPLPaymentLinker:
         try:
             # Simulate API call to BNPL gateway (e.g., LazyPay/Amazon Pay API)
             response = requests.post(
-                f"{self.base_url}/check-eligibility", 
-                json=payload, 
+                f"{self.base_url}/check-eligibility",
+                json=payload,
                 headers=self._get_headers(),
                 timeout=5
             )
@@ -40,8 +40,8 @@ class BNPLPaymentLinker:
             "merchant_user_id": zepto_user_id
         }
         response = requests.post(
-            f"{self.base_url}/link/send-otp", 
-            json=payload, 
+            f"{self.base_url}/link/send-otp",
+            json=payload,
             headers=self._get_headers()
         )
         return response.json() # Returns {'reference_id': 'txn_123', 'status': 'OTP_SENT'}
@@ -53,8 +53,8 @@ class BNPLPaymentLinker:
             "otp": otp
         }
         response = requests.post(
-            f"{self.base_url}/link/verify-otp", 
-            json=payload, 
+            f"{self.base_url}/link/verify-otp",
+            json=payload,
             headers=self._get_headers()
         )
         return response.json() # Returns {'status': 'SUCCESS', 'bnpl_token': 'tok_xyz123'}
@@ -63,7 +63,7 @@ class BNPLPaymentLinker:
 # --- Example Integration Workflow ---
 def handle_user_payment_linking(user_phone: str, zepto_user_id: str, provider: str) -> Optional[str]:
     linker = BNPLPaymentLinker(provider_name=provider, api_key="YOUR_PAYMENT_GATEWAY_KEY")
-    
+
     # Step 1: Check if eligible
     eligibility = linker.check_eligibility(user_phone)
     if not eligibility.get("eligible"):
@@ -71,18 +71,18 @@ def handle_user_payment_linking(user_phone: str, zepto_user_id: str, provider: s
         return None
 
     print(f"User is eligible! Available Credit: ₹{eligibility.get('credit_limit', 0)}")
-    
+
     # Step 2: Request OTP for Linking
     otp_res = linker.initiate_linking_otp(user_phone, zepto_user_id)
     ref_id = otp_res.get("reference_id")
-    
+
     # Step 3: Verify OTP (Simulating user input)
-    user_entered_otp = "123456" 
+    user_entered_otp = "123456"
     verification = linker.verify_otp_and_link(ref_id, user_entered_otp)
-    
+
     if verification.get("status") == "SUCCESS":
         bnpl_token = verification.get("bnpl_token")
         # Save `bnpl_token` into Zepto DB under the user's saved payment methods
         return bnpl_token
-    
+
     return None

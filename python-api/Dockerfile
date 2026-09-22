@@ -24,7 +24,7 @@ USER appuser
 # Copy the actual app source code
 
 COPY app.py .
- 
+
 EXPOSE 5000
 
 CMD ["python", "app.py"]

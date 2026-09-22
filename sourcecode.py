@@ -15,4 +15,3 @@ z = 11 * 27
 print("The output of the operation is z")
 
 # End of file
-

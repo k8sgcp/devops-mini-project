@@ -34,7 +34,7 @@ def charge_payment_gateway(payment_token: str, amount: float, currency: str) -> 
     """
     # Simulate payment processing logic
     print(f"--> Charging card token '{payment_token}': {currency} ${amount:.2f}")
-    
+
     # Return True for success, False for failed charge
     return True
 
@@ -48,7 +48,7 @@ def process_automatic_renewals():
         # Trigger renewal 1 day before expiration
         if expiry_date == target_renewal_date:
             logging.info(f"Processing 1-day pre-expiry renewal for user: {user['user_id']}")
-            
+
             # Step A: Charge $90 USD
             payment_success = charge_payment_gateway(
                 payment_token=user["payment_token"],
@@ -60,7 +60,7 @@ def process_automatic_renewals():
                 # Step B: Extend subscription by 1 month (30 days) from current expiry date
                 new_expiry_date = expiry_date + timedelta(days=30)
                 user["subscription_end"] = new_expiry_date.strftime("%Y-%m-%d")
-                
+
                 logging.info(
                     f"SUCCESS: Renewed {user['plan']} for {user['name']}. "
                     f"New expiry date: {user['subscription_end']}"

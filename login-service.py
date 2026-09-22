@@ -13,7 +13,7 @@ def get_db_connection():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    
+
     identifier = data.get('identifier') # Can be username, email, or mobile
     password = data.get('password')
 
@@ -25,7 +25,7 @@ def login():
 
     # Query to check if the user exists by username, email, or mobile
     query = """
-        SELECT * FROM users 
+        SELECT * FROM users
         WHERE username = ? OR email = ? OR mobile = ?
     """
     cursor.execute(query, (identifier, identifier, identifier))

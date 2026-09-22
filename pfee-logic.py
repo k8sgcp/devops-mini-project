@@ -21,9 +21,9 @@ class Order:
             raise ValueError("Only paid orders can be refunded.")
 
         self.status = "CANCELLED"
-        
+
         refund_amount = self.items_total  # Items total returned; platform fee retained
-        
+
         return {
             "order_id": self.order_id,
             "status": self.status,

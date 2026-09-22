@@ -7,7 +7,7 @@ class CustomerAccount:
         self.plan_cost = plan_cost
         self.plan_duration_days = plan_duration_days
         self.auto_debit_enabled = True
-        
+
         # Set initial plan expiry to right now for demonstration
         self.expiry_date = datetime.now()
 
@@ -28,7 +28,7 @@ class CustomerAccount:
                 # Step 3: Deduct amount & extend validity
                 self.wallet_balance -= self.plan_cost
                 self.expiry_date = current_time + timedelta(days=self.plan_duration_days)
-                
+
                 print(f"[{self.customer_id}] Auto-debit successful! Deducted ₹{self.plan_cost}.")
                 print(f"[{self.customer_id}] New Expiry: {self.expiry_date.strftime('%Y-%m-%d %H:%M:%S')}")
                 print(f"[{self.customer_id}] Remaining Balance: ₹{self.wallet_balance}\n")

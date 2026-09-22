@@ -46,7 +46,7 @@ def create_access_token(data: dict, expires_delta: timedelta) -> str:
 def login(credentials: LoginRequest):
     # 1. Fetch user from database
     user = FAKE_USER_DB.get(credentials.user_id)
-    
+
     # 2. Validate user existence and password match
     if not user or not verify_password(credentials.password, user["hashed_password"]):
         raise HTTPException(
@@ -54,14 +54,14 @@ def login(credentials: LoginRequest):
             detail="Invalid credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # 3. Generate JWT access token
     token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user["user_id"]}, 
+        data={"sub": user["user_id"]},
         expires_delta=token_expires
     )
-    
+
     # 4. Return response to mobile client
     return {
         "access_token": access_token,

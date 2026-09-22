@@ -9,7 +9,7 @@ class CosmicStorageAlert:
 
     def check_storage_status(self, bytes_used: int, total_bytes: int) -> dict:
         """
-        Calculates storage usage percentage and triggers an alert 
+        Calculates storage usage percentage and triggers an alert
         if usage meets or exceeds the threshold.
         """
         if total_bytes <= 0:
@@ -17,7 +17,7 @@ class CosmicStorageAlert:
 
         usage_ratio = bytes_used / total_bytes
         usage_percentage = round(usage_ratio * 100, 2)
-        
+
         is_alert_triggered = usage_ratio >= self.alert_threshold
 
         status = {

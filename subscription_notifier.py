@@ -33,7 +33,7 @@ def send_renewal_email(user_email, user_name, expiry_date):
 
     body = f"""Hi {user_name},
 
-Your monthly subscription will expire on {expiry_date}. 
+Your monthly subscription will expire on {expiry_date}.
 
 Since this service requires manual renewal, please log in to your account and renew your plan to ensure uninterrupted access.
 

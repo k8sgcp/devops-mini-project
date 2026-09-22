@@ -13,7 +13,7 @@ class CosmicStorageManager:
 
     def process_storage_check(self, bytes_used: int, total_bytes: int) -> dict:
         """
-        Monitors storage usage. If threshold is hit, sends an alert and 
+        Monitors storage usage. If threshold is hit, sends an alert and
         triggers auto-subscription to expand quota by 100GB.
         """
         if total_bytes <= 0:
@@ -34,7 +34,7 @@ class CosmicStorageManager:
 
         if threshold_reached:
             self._send_alert(usage_percentage)
-            
+
             if self.auto_subscribe_enabled:
                 new_total = self._trigger_auto_subscribe(total_bytes)
                 status["auto_subscribed"] = True
@@ -50,16 +50,16 @@ class CosmicStorageManager:
 
     def _trigger_auto_subscribe(self, current_total_bytes: int) -> int:
         """
-        Executes auto-subscribe logic to purchase and provision 
+        Executes auto-subscribe logic to purchase and provision
         100GB additional storage for Cosmic.
         """
         new_total_bytes = current_total_bytes + self.ADDITIONAL_STORAGE_BYTES
-        
+
         logger.info("🔄 Auto-subscribe triggered: Submitting payment & provisioning 100GB...")
-        
+
         # Mock API integration with Cosmic billing/provisioning service
         # e.g., cosmic_client.billing.add_addon_pack(pack_id="extra_100gb")
-        
+
         logger.info(f"✅ Successfully expanded quota. New capacity: {new_total_bytes / (1024**3):.2f} GB")
         return new_total_bytes
 

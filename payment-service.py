@@ -57,7 +57,7 @@ def render_payment_page(payment_data: dict):
         if not opt.is_available:
             print(f" [X] {opt.title} (Not available for high-value carts)")
             continue
-        
+
         offer = f"  * {opt.badge_offer}" if opt.badge_offer else ""
         print(f" -> {opt.title} - {opt.subtitle}{offer}")
 
@@ -66,7 +66,7 @@ def render_payment_page(payment_data: dict):
 # --- Execution ---
 if __name__ == "__main__":
     service = PaymentOptionService()
-    
+
     # Simulating a user checkout with cart value ₹750
     payment_response = service.get_payment_page_options(user_id="usr_9876", cart_value=750.0)
     render_payment_page(payment_response)

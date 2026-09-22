@@ -5,10 +5,10 @@ def process_recurring_subscriptions(db, payment_gateway, order_system):
     Runs daily (via cron or task scheduler) to process due orders.
     """
     today = datetime.now().date()
-    
+
     # 1. Fetch active subscriptions due today or overdue
     due_subscriptions = db.query(
-        "SELECT * FROM subscriptions WHERE status = 'ACTIVE' AND next_order_date <= ?", 
+        "SELECT * FROM subscriptions WHERE status = 'ACTIVE' AND next_order_date <= ?",
         (today,)
     )
 
@@ -26,7 +26,7 @@ def process_recurring_subscriptions(db, payment_gateway, order_system):
 
             # 4. Advance next order date by 60 calendar days
             new_next_date = sub['next_order_date'] + timedelta(days=60)
-            
+
             db.execute(
                 "UPDATE subscriptions SET next_order_date = ? WHERE id = ?",
                 (new_next_date, sub['id'])

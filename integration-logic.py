@@ -54,7 +54,7 @@ def index():
                         "color": "#3399cc"
                     }
                 };
-                
+
                 var rzp1 = new Razorpay(options);
                 rzp1.open();
                 e.preventDefault();
@@ -70,11 +70,11 @@ def index():
 def create_order():
     # Amount is in the smallest currency unit (e.g., 50000 paise = ₹500)
     order_data = {
-        "amount": 50000, 
+        "amount": 50000,
         "currency": "INR",
         "payment_capture": 1 # 1 = Automatic capture, 0 = Manual capture
     }
-    
+
     try:
         order = client.order.create(data=order_data)
         return jsonify(order)

@@ -38,12 +38,12 @@ def record_daily_steps_and_award_coins(user_data: dict, step_date: date, total_s
     daily_coins = (total_steps // 1000) * COINS_PER_1000_STEPS
     user_data["daily_steps_log"][step_date] = total_steps
     user_data["wallet_balance"] += daily_coins
-    
+
     print(f"Daily Sync ({step_date}): {total_steps} steps -> +{daily_coins} coins.")
 
     # 3. 30-Day Bonus Check
     rolling_total_steps = calculate_30_day_total(user_data["daily_steps_log"], step_date)
-    
+
     # Calculate current 30-day window start marker to prevent duplicate payouts within the same window
     current_window_start = step_date - timedelta(days=CYCLE_DAYS - 1)
 

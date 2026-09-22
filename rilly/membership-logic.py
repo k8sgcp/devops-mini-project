@@ -32,16 +32,16 @@ class User:
         """
         if steps < 0:
             raise ValueError("Steps added must be positive.")
-            
+
         self.total_steps += steps
         new_club = determine_club(self.total_steps)
-        
+
         # Check if user earned a new/higher tier
         if new_club != self.club:
             old_club = self.club
             self.club = new_club
             return new_club  # Signals a tier update/upgrade event
-            
+
         return None
 
 # --- Example Usage ---

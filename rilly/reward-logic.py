@@ -5,7 +5,7 @@ def calculate_coins(steps: int) -> int:
     """
     COINS_PER_INTERVAL = 10
     STEP_INTERVAL = 1000
-    
+
     # Integer division ensures reward is given only for every FULL 1,000 steps
     return (steps // STEP_INTERVAL) * COINS_PER_INTERVAL
 
@@ -16,17 +16,17 @@ def process_daily_reward(user_id: str, steps: int, current_time_str: str, wallet
     """
     ACTIVE_START = "05:30"
     ACTIVE_END = "22:30"
-    
+
     # Check if the event/sync is within active hours
     if not (ACTIVE_START <= current_time_str <= ACTIVE_END):
         print(f"[{current_time_str}] Outside active tracking window (05:30 - 22:30). Steps ignored.")
         return wallet
-    
+
     earned_coins = calculate_coins(steps)
-    
+
     # Add to existing balance or initialize if new
     wallet[user_id] = wallet.get(user_id, 0) + earned_coins
-    
+
     print(f"[{current_time_str}] User {user_id}: {steps} steps -> +{earned_coins} coins earned. New Balance: {wallet[user_id]}")
     return wallet
 
